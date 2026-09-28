@@ -1,0 +1,25 @@
+{
+  "name": "mycodepractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2",
+    "@types/pdfkit": "^0.17.6",
+    "allure-commandline": "^2.46.1",
+    "allure-playwright": "^3.12.2",
+    "dotenv": "^18.0.4",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "image-size": "^2.0.4",
+    "pdfkit": "^0.20.2",
+    "xlsx": "^0.18.5"
+  }
+}

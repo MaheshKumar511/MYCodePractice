@@ -1,0 +1,19 @@
+gitignore
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/.playwright-mcp/
+
+# Environment
+.env
+
+# Allure
+/allure-report/
+/allure-results/
+
+# PDF Reports
+/reports/pdf/
