@@ -1,4 +1,3 @@
-```yaml
 name: Playwright Tests
 
 on:
@@ -37,4 +36,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-```
