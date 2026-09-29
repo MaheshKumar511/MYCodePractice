@@ -10,17 +10,26 @@ export default class PdfReporter implements Reporter {
         for (const pageStep of result.steps) {
             for (const methodStep of pageStep.steps || []) {
                 const failed = !!methodStep.error;
-                const screenshotName = failed ? `${methodStep.title}-FAILED.png` : `${methodStep.title}.png`;
+                const screenshotName = failed
+                    ? `${methodStep.title}-FAILED.png`
+                    : `${methodStep.title}.png`;
 
                 steps.push({
                     page: pageStep.title,
                     method: methodStep.title,
                     status: failed ? 'FAIL' : 'PASS',
-                    screenshot: path.join(process.cwd(), 'test-results', test.title, screenshotName)
+                    screenshot: path.join(
+                        process.cwd(),
+                        'test-results',
+                        test.title,
+                        screenshotName
+                    )
                 });
             }
         }
 
-        if (steps.length) PdfReport.generate(test.title, steps);
+        if (steps.length) {
+            PdfReport.generate(test.title, steps);
+        }
     }
 }

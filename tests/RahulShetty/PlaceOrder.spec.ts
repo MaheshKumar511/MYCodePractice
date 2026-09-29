@@ -8,7 +8,7 @@ const testData = ExcelUtils.readExcel(filePath, 'testData');
 test.describe('Rahul Shetty - Place Order', { tag: '@RahulShetty' }, () => {
 
     for (const [index, data] of testData.entries()) {
-        test(`Place Order Successfully - Test Data ${index + 1}`, async ({ maheshCosomfixture, page }) => {
+        test(`Place Order Successfully - Test Data ${index + 1}`, async ({ maheshCosomfixture }) => {
 
             const email = process.env.USER_EMAIL!;
             const password = process.env.USER_PASSWORD!;
@@ -32,9 +32,9 @@ test.describe('Rahul Shetty - Place Order', { tag: '@RahulShetty' }, () => {
             });
 
             await test.step('Cart Page', async () => {
-                //await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice1();
-                //await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice2();
-                await maheshCosomfixture.RahulShetty.cartPage.getProductID();
+                await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice1();
+                await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice2();
+                await maheshCosomfixture.RahulShetty.cartPage.verifyProductID();
                 await maheshCosomfixture.RahulShetty.cartPage.checkout();
             });
 

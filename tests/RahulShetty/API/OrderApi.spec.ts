@@ -26,5 +26,4 @@ test.describe('Order API', () => {
         expect(response.data[0].productName).toBeTruthy();
         expect(response.data[0].orderPrice).toBeTruthy();
     });
-
 });

@@ -1,4 +1,3 @@
-
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
 import path from 'path';
@@ -16,7 +15,9 @@ export class PdfReport {
         const reportDir = path.join(process.cwd(), 'reports', 'pdf');
         fs.mkdirSync(reportDir, { recursive: true });
 
-        const filePath = path.join(reportDir, `${testName}.pdf`);
+        const safeTestName = testName.replace(/[<>:"/\\|?*]/g, '_');
+        const filePath = path.join(reportDir, `${safeTestName}.pdf`);
+
         const doc = new PDFDocument({ margin: 40 });
         doc.pipe(fs.createWriteStream(filePath));
 
@@ -86,6 +87,7 @@ export class PdfReport {
         }
 
         doc.end();
+
         console.log(`PDF Report: ${filePath}`);
     }
 }

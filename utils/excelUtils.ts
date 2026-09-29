@@ -1,8 +1,6 @@
 import * as XLSX from 'xlsx';
 
 export type ExcelData = {
-    email: string;
-    password: string;
     cvv: number;
     name: string;
 };

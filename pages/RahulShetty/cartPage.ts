@@ -48,7 +48,7 @@ export class CartPage extends PlaywrightWrapper {
         });
     }
 
-    async getProductID() {
+    async verifyProductID() {
         await this.screenshotStep('Verify Product ID', async () => {
             await this.waitForVisible(this.txt_productId(), 'Product ID');
         });

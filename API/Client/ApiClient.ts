@@ -8,7 +8,9 @@ export class ApiClient {
         const response = await this.request.get(endpoint, {
             headers: token ? { Authorization: token } : {}
         });
+
         expect(response.ok()).toBeTruthy();
+
         return response;
     }
 
@@ -17,7 +19,9 @@ export class ApiClient {
             data,
             headers: token ? { Authorization: token } : {}
         });
+
         expect(response.ok()).toBeTruthy();
+
         return response;
     }
 
@@ -26,7 +30,9 @@ export class ApiClient {
             data,
             headers: token ? { Authorization: token } : {}
         });
+
         expect(response.ok()).toBeTruthy();
+
         return response;
     }
 
@@ -34,7 +40,9 @@ export class ApiClient {
         const response = await this.request.delete(endpoint, {
             headers: token ? { Authorization: token } : {}
         });
+
         expect(response.ok()).toBeTruthy();
+
         return response;
     }
 }

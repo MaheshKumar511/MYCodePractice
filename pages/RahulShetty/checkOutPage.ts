@@ -10,17 +10,34 @@ export class CheckoutPage extends PlaywrightWrapper {
     private btn_placeOrder: () => Locator;
 
     private btn_countryOption = (country: string): Locator => {
-        return this.page.locator('section.ta-results button.ta-item').filter({ hasText: new RegExp(`^\\s*${country}\\s*$`, 'i') }).first();
+        return this.page.locator('section.ta-results button.ta-item').filter({hasText: new RegExp(`^\\s*${country}\\s*$`, 'i')}).first();
     };
 
-    constructor(page: Page, private screenshotStep: (name: string, fn: () => Promise<void>) => Promise<void>) {
+    constructor(
+        page: Page,
+        private screenshotStep: (name: string, fn: () => Promise<void>) => Promise<void>
+    ) {
         super(page);
 
-        this.cmb_expiry = () => { return this.page.getByRole('combobox').nth(1); };
-        this.txt_cvv = () => { return this.page.getByRole('textbox').nth(1); };
-        this.txt_cardHolderName = () => { return this.page.getByRole('textbox').nth(2); };
-        this.txt_country = () => { return this.page.getByRole('textbox', { name: 'Select Country' }); };
-        this.btn_placeOrder = () => { return this.page.getByText('Place Order'); };
+        this.cmb_expiry = () => {
+            return this.page.getByRole('combobox').nth(1);
+        };
+
+        this.txt_cvv = () => {
+            return this.page.getByRole('textbox').nth(1);
+        };
+
+        this.txt_cardHolderName = () => {
+            return this.page.getByRole('textbox').nth(2);
+        };
+
+        this.txt_country = () => {
+            return this.page.getByRole('textbox', { name: 'Select Country' });
+        };
+
+        this.btn_placeOrder = () => {
+            return this.page.getByText('Place Order');
+        };
     }
 
     async selectExpiry() {
@@ -44,14 +61,14 @@ export class CheckoutPage extends PlaywrightWrapper {
     async enterCountry(country: string) {
         await this.screenshotStep('Enter Country', async () => {
             await this.fill(this.txt_country(), country, 'Country');
-            await this.page.keyboard.press('Backspace');
+            await this.press(this.txt_country(), 'Backspace', 'Country');
         });
     }
 
     async selectCountry(country: string) {
         await this.screenshotStep('Select Country', async () => {
             const countryOption = this.btn_countryOption(country);
-            await countryOption.waitFor({ state: 'visible' });
+            await this.waitForVisible(countryOption, `Country option: ${country}`);
             await this.click(countryOption, `Country option: ${country}`);
         });
     }
