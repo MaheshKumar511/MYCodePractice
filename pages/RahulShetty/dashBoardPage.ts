@@ -50,29 +50,31 @@ export class DashboardPage extends PlaywrightWrapper {
     async addToCart() {
         await this.screenshotStep('Add Product To Cart', async () => {
 
-            this.page.on('request', request => {
-                if (
-                    request.method() === 'POST' &&
-                    request.url().includes('/api/ecom/user/add-to-cart')
-                ) {
-                    console.log(`ADD TO CART REQUEST: ${request.url()}`);
-                    console.log(`ADD TO CART REQUEST BODY: ${request.postData()}`);
-                }
-            });
+            console.log('CURRENT URL:', this.page.url());
 
-            this.page.on('response', async response => {
-                if (
-                    response.request().method() === 'POST' &&
-                    response.url().includes('/api/ecom/user/add-to-cart')
-                ) {
-                    console.log(`ADD TO CART RESPONSE: ${response.status()} ${response.url()}`);
-                    console.log(`ADD TO CART BODY: ${await response.text()}`);
-                }
-            });
+            const productId = await this.page.locator('input[name="_id"]').inputValue();
+            console.log('PRODUCT PAGE _id:', productId);
 
-            await this.click(this.btn_addToCart(), 'Add to Cart');
+            const [request, response] = await Promise.all([
+                this.page.waitForRequest(
+                    request =>
+                        request.method() === 'POST' &&
+                        request.url().includes('/api/ecom/user/add-to-cart')
+                ),
+                this.page.waitForResponse(
+                    response =>
+                        response.request().method() === 'POST' &&
+                        response.url().includes('/api/ecom/user/add-to-cart')
+                ),
+                this.click(this.btn_addToCart(), 'Add to Cart')
+            ]);
+
+            console.log('ADD TO CART REQUEST BODY:', request.postData());
+            console.log('ADD TO CART RESPONSE:', response.status());
+            console.log('ADD TO CART BODY:', await response.text());
         });
     }
+
 /*
     async addToCart() {
         await this.screenshotStep('Add Product To Cart', async () => {
