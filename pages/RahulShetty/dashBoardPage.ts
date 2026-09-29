@@ -50,10 +50,8 @@ export class DashboardPage extends PlaywrightWrapper {
     async addToCart() {
         await this.screenshotStep('Add Product To Cart', async () => {
 
-            console.log('CURRENT URL:', this.page.url());
-
-            const productId = await this.page.locator('input[name="_id"]').inputValue();
-            console.log('PRODUCT PAGE _id:', productId);
+            const productId = this.page.url().split('/product-details/')[1];
+            console.log('PRODUCT ID FROM URL:', productId);
 
             const [request, response] = await Promise.all([
                 this.page.waitForRequest(
