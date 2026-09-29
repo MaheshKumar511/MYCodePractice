@@ -67,6 +67,8 @@ export class DashboardPage extends PlaywrightWrapper {
                 this.click(this.btn_addToCart(), 'Add to Cart')
             ]);
 
+            console.log('ADD TO CART URL:', request.url());
+            console.log('ADD TO CART HEADERS:', request.headers());
             console.log('ADD TO CART REQUEST BODY:', request.postData());
             console.log('ADD TO CART RESPONSE:', response.status());
             console.log('ADD TO CART BODY:', await response.text());
