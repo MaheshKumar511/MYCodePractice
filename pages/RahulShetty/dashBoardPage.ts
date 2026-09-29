@@ -43,7 +43,18 @@ export class DashboardPage extends PlaywrightWrapper {
 
     async clickFirstProduct() {
         await this.screenshotStep('Click First Product', async () => {
+
+            const productResponsePromise = this.page.waitForResponse(
+                response =>
+                    response.request().method() === 'GET' &&
+                    response.url().includes('/api/ecom/product/get-product-detail/')
+            );
+
             await this.click(this.btn_viewProduct(), 'View product');
+
+            const productResponse = await productResponsePromise;
+
+            console.log('PRODUCT DETAIL RESPONSE:', productResponse.status());
         });
     }
 
