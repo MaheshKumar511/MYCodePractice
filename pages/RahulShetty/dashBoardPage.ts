@@ -70,15 +70,24 @@ export class DashboardPage extends PlaywrightWrapper {
 
     async goToCart() {
         await this.screenshotStep('Go To Cart', async () => {
-            await Promise.all([
-                this.page.waitForResponse(
-                    response =>
-                        response.url().includes('/api/ecom/user/get-cart-products') &&
-                        response.request().method() === 'GET' &&
-                        response.ok()
-                ),
-                this.click(this.btn_cart(), 'Cart')
-            ]);
+
+            this.page.on('response', async response => {
+                if (response.request().method() === 'GET') {
+                    console.log(
+                        `GET RESPONSE: ${response.status()} ${response.url()}`
+                    );
+
+                    if (response.url().includes('/api/')) {
+                        try {
+                            console.log(`GET BODY: ${await response.text()}`);
+                        } catch {
+                            console.log('GET BODY: <unavailable>');
+                        }
+                    }
+                }
+            });
+
+            await this.click(this.btn_cart(), 'Cart');
         });
     }
 
