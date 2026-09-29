@@ -38,7 +38,7 @@ export class CartPage extends PlaywrightWrapper {
 
     async getProductID() {
         await this.screenshotStep('Verify Product ID', async () => {
-            console.log('CART BODY:', await this.page.locator('body').innerText());
+            console.log('CART HTML:', await this.page.locator('body').innerHTML());
             await this.expectVisible(this.txt_productId(), 'Product ID');
         });
     }
