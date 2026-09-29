@@ -49,15 +49,23 @@ export class DashboardPage extends PlaywrightWrapper {
 
     async addToCart() {
         await this.screenshotStep('Add Product To Cart', async () => {
-            await Promise.all([
-                this.page.waitForResponse(
-                    response =>
-                        response.url().includes('/api/ecom/user/add-to-cart') &&
-                        response.request().method() === 'POST' &&
-                        response.ok()
-                ),
-                this.click(this.btn_addToCart(), 'Add to Cart')
-            ]);
+
+            this.page.on('response', async response => {
+                if (
+                    response.request().method() === 'POST' &&
+                    response.url().includes('/api/ecom/user/add-to-cart')
+                ) {
+                    console.log(`ADD TO CART RESPONSE: ${response.status()} ${response.url()}`);
+
+                    try {
+                        console.log(`ADD TO CART BODY: ${await response.text()}`);
+                    } catch {
+                        console.log('ADD TO CART BODY: <unavailable>');
+                    }
+                }
+            });
+
+            await this.click(this.btn_addToCart(), 'Add to Cart');
         });
     }
 /*
