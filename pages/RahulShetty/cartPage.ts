@@ -16,9 +16,10 @@ export class CartPage extends PlaywrightWrapper {
         this.btn_checkout = () => this.page.getByRole('button', { name: /Checkout/i });
         this.txt_productId = () => this.page.locator('.itemNumber');
     }
-
+    
     async verifyCartPrice1() {
         await this.screenshotStep('Verify Cart Price 1', async () => {
+            console.log('CART BODY:', await this.page.locator('body').innerText());
             await this.expectVisible(this.txt_cartPrice1(), 'Cart price 1');
         });
     }
