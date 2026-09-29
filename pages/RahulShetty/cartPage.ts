@@ -11,8 +11,8 @@ export class CartPage extends PlaywrightWrapper {
     constructor(page: Page, private screenshotStep: (name: string, fn: () => Promise<void>) => Promise<void>) {
         super(page);
 
-        this.txt_cartPrice1 = () => this.page.locator('.cartSection h3').first();
-        this.txt_cartPrice2 = () => this.page.locator('.subtotal span').last();
+        this.txt_cartPrice1 = () => this.page.getByText(/^\$\s*\d+$/).first();
+        this.txt_cartPrice2 = () => this.page.getByText(/^\$\s*\d+$/).last();
         this.btn_checkout = () => this.page.getByRole('button', { name: /Checkout/i });
         this.txt_productId = () => this.page.locator('.itemNumber');
     }
@@ -41,6 +41,9 @@ export class CartPage extends PlaywrightWrapper {
         });
     }
 }
+
+
+
 
 
 /*
