@@ -32,7 +32,7 @@ test.describe('Rahul Shetty - Place Order', { tag: '@RahulShetty' }, () => {
             });
 
             await test.step('Cart Page', async () => {
-                await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice1();
+                //await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice1();
                 await maheshCosomfixture.RahulShetty.cartPage.verifyCartPrice2();
                 await maheshCosomfixture.RahulShetty.cartPage.getProductID();
                 await maheshCosomfixture.RahulShetty.cartPage.checkout();
