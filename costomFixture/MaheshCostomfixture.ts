@@ -1,5 +1,6 @@
 import { test as base, Page } from '@playwright/test';
 import { RahulShettyApp } from '../pages/RahulShetty/RahulShettyApp';
+import { TableHandlingPage } from '../pages/Seliniumpractice/tableHandelig';
 
 type MaheshFixture = {
     maheshCosomfixture: MaheshCostomfixture;
@@ -8,6 +9,7 @@ type MaheshFixture = {
 export class MaheshCostomfixture {
 
     private _RahulShetty?: RahulShettyApp | null;
+    private _tableHandling?: TableHandlingPage | null;
 
     constructor(
         private page: Page,
@@ -17,6 +19,13 @@ export class MaheshCostomfixture {
     get RahulShetty(): RahulShettyApp {
         if (!this._RahulShetty) this._RahulShetty = new RahulShettyApp(this.page, this.screenshotStep);
         return this._RahulShetty;
+    }
+
+    get tableHandling(): TableHandlingPage {
+        if (!this._tableHandling) {
+            this._tableHandling = new TableHandlingPage(this.page, this.screenshotStep);
+        }
+        return this._tableHandling;
     }
 }
 
